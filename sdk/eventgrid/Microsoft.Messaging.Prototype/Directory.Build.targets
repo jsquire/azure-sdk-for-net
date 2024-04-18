@@ -1,0 +1,24 @@
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+      This area is for local development overrides; this targets files is not shared
+      with the respository.
+   -->
+  <!--PropertyGroup>
+    <UseProjectReferenceToAzureClients>true</UseProjectReferenceToAzureClients>
+  </PropertyGroup-->
+
+  <!-- Import the common SDK build targets. -->
+  <Import Project="$(MSBuildThisFileDirectory)..\..\..\Directory.Build.targets" />
+
+  <!-- Remind me about the overrides, in case I forget -->
+  <Target Name="DisplayLocalOverrides" BeforeTargets="Build" Outputs="LocalOverrides" Condition="'$(UseProjectReferenceToAzureClients)' == 'true'">
+      <Message Text="Local Override: UseProjectReferenceToAzureClients = $(UseProjectReferenceToAzureClients)" Importance="high"/>
+  </Target>
+
+  <!-- Remove non-project assets needed only for packaging -->
+  <ItemGroup>
+    <None Remove="$(RepoEngPath)/images/azureicon.png" />
+    <None Remove="$(MSBuildProjectDirectory)/../CHANGELOG.md" />
+    <None Remove="$(MSBuildProjectDirectory)/../README.md" />
+  </ItemGroup>
+</Project>

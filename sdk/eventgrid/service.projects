@@ -22,9 +22,10 @@
   <ItemGroup Condition="'$(SDKType)' == 'client'">
     <ProjectsToIncludeBySDKType Include="$(MSBuildThisFileDirectory)Azure.Messaging.EventGrid\**\*.csproj" />
     <ProjectsToIncludeBySDKType Include="$(MSBuildThisFileDirectory)Azure.Messaging.EventGrid.Namespaces\**\*.csproj" />
+    <ProjectsToIncludeBySDKType Include="$(MSBuildThisFileDirectory)Microsoft.Messaging.Prototype\**\*.csproj" />
     <ProjectsToIncludeBySDKType Include="$(MSBuildThisFileDirectory)Microsoft.Azure.Messaging.EventGrid.CloudNativeCloudEvents\**\*.csproj" />
   </ItemGroup>
-  
+
   <ItemGroup Condition="'$(SDKType)' == 'functions'">
     <ProjectsToIncludeBySDKType Include="$(MSBuildThisFileDirectory)Microsoft.Azure.WebJobs.Extensions.EventGrid\**\*.csproj" />
   </ItemGroup>
