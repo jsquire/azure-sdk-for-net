@@ -1,7 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-namespace Microsoft.Messaging.Prototype.Exceptions
+namespace Microsoft.Messaging.Prototype
 {
     public enum MessagingFailureReason
     {

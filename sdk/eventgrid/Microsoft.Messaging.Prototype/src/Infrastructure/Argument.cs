@@ -2,12 +2,11 @@
 // Licensed under the MIT License.
 
 using System;
-using System.Globalization;
-using Microsoft.Messaging.Prototype.Exceptions;
+using Microsoft.Messaging.Prototype;
 
 namespace Azure.Core
 {
-   internal static partial class Argument
+    internal static partial class Argument
     {
         public static void AssertNotEmptyOrWhiteSpace(string argumentValue, string argumentName)
         {

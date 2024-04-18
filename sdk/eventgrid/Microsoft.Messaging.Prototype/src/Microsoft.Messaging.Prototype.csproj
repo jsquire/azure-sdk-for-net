@@ -7,7 +7,7 @@
     <TargetFrameworks>$(RequiredTargetFrameworks)</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DisableEnhancedAnalysis>true</DisableEnhancedAnalysis>
-    <NoWarn>1591;AZC0001;AZC007;$(NoWarn)</NoWarn>
+    <NoWarn>1591;AZC0001;AZC007;AZC0015$(NoWarn)</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

@@ -2,12 +2,9 @@
 // Licensed under the MIT License.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Resources;
-using System.Text;
 
-namespace Microsoft.Messaging.Prototype.Exceptions
+namespace Microsoft.Messaging.Prototype
 {
     public class MessagingException : Exception
     {
