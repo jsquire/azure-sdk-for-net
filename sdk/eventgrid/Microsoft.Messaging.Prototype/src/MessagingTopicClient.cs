@@ -14,26 +14,20 @@ namespace Microsoft.Messaging.Prototype
 {
     public class MessagingTopicClient : IAsyncDisposable
     {
-        private volatile bool _closed;
-
         public string FullyQualifiedNamespace { get; }
 
         public string Topic { get; }
 
         public string Identifier { get; }
 
-        public bool IsClosed
-        {
-            get => _closed;
-            protected set => _closed = value;
-        }
+        public virtual bool IsDisposed { get; private set; }
 
         public MessagingTopicClient(string connectionString) : this(connectionString, null, null)
         {
         }
 
-       public MessagingTopicClient(string connectionString,
-                                   MessagingTopicClientOptions clientOptions) : this(connectionString, null, clientOptions)
+        public MessagingTopicClient(string connectionString,
+                                    MessagingTopicClientOptions clientOptions) : this(connectionString, null, clientOptions)
         {
         }
 
@@ -73,10 +67,14 @@ namespace Microsoft.Messaging.Prototype
         {
         }
 
-        public virtual ValueTask DisposeAsync()
+        protected virtual ValueTask DisposeAsyncCore() => default;
+
+        public async ValueTask DisposeAsync()
         {
+            await DisposeAsyncCore().ConfigureAwait(false);
+            IsDisposed = true;
+
             GC.SuppressFinalize(this);
-            return default;
         }
 
         public virtual Task PublishCloudEventAsync(CloudEvent cloudEvent, CancellationToken cancellationToken = default) =>
@@ -93,5 +91,7 @@ namespace Microsoft.Messaging.Prototype
 
         public virtual ValueTask<CloudEventBatch> CreateCloudEventBatchAsync(CreateCloudEventBatchOptions options, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
+
+        //public virtual Queue
     }
 }
