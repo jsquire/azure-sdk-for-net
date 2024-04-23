@@ -92,6 +92,16 @@ namespace Microsoft.Messaging.Prototype
         public virtual ValueTask<CloudEventBatch> CreateCloudEventBatchAsync(CreateCloudEventBatchOptions options, CancellationToken cancellationToken = default) =>
             throw new NotImplementedException();
 
-        //public virtual Queue
+        public virtual QueueReceiver CreateQueueReceiver(string subscriptionName, QueueReceiverOptions options = default) =>
+            throw new NotImplementedException();
+
+        public virtual QueueReceiver CreateQueueReceiver(QueueReceiverOptions options = default) =>
+            throw new NotImplementedException();
+
+        public virtual QueueCloudEventProcessor CreateQueueProcessor(string subscriptionName, QueueCloudEventProcessorOptions options = default) =>
+            throw new NotImplementedException();
+
+        public virtual QueueCloudEventProcessor CreateQueueProcessor(QueueCloudEventProcessorOptions options = default) =>
+            throw new NotImplementedException();
     }
 }
