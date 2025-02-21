@@ -4,9 +4,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Azure.Core.Diagnostics;
 using Azure.Messaging.EventHubs.Tests;
 using Microsoft.Azure.WebJobs.Host.TestCommon;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -78,6 +78,11 @@ namespace Microsoft.Azure.WebJobs.Host.EndToEndTests
                         options.EventProcessorOptions.TrackLastEnqueuedEventProperties = true;
                         options.EventProcessorOptions.MaximumWaitTime = TimeSpan.FromSeconds(5);
                         options.CheckpointContainer = Guid.NewGuid().ToString("D").Substring(0, 13);
+                    });
+
+                    b.Services.AddAzureClients(clientBuilder =>
+                    {
+                        clientBuilder.UseCredential(EventHubsTestEnvironment.Instance.Credential);
                     });
                 })
                 .ConfigureLogging(b =>

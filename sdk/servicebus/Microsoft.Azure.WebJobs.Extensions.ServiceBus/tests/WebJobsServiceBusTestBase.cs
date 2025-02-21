@@ -1,6 +1,17 @@
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
+using Azure.Core.TestFramework;
+using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
+using Azure.Messaging.ServiceBus.Tests;
+using Microsoft.Azure.WebJobs.Host.TestCommon;
+using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,17 +20,6 @@ using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
-using Azure.Core.TestFramework;
-using Azure.Messaging.ServiceBus;
-using Azure.Messaging.ServiceBus.Administration;
-using Azure.Messaging.ServiceBus.Tests;
-using Microsoft.Azure.WebJobs.Host.TestCommon;
-using Microsoft.Azure.WebJobs.ServiceBus;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using NUnit.Framework;
 using static Azure.Messaging.ServiceBus.Tests.ServiceBusScope;
 
 namespace Microsoft.Azure.WebJobs.Host.EndToEndTests
@@ -172,6 +172,11 @@ namespace Microsoft.Azure.WebJobs.Host.EndToEndTests
                 .ConfigureDefaultTestHost<TJobClass>(b =>
                 {
                     b.AddServiceBus(options => options.ClientRetryOptions.TryTimeout = TimeSpan.FromSeconds(10));
+
+                    b.Services.AddAzureClients(clientBuilder =>
+                    {
+                        clientBuilder.UseCredential(ServiceBusTestEnvironment.Instance.Credential);
+                    });
                 });
             // do this after the defaults so test-specific values will override the defaults
             configurationDelegate?.Invoke(hostBuilder);
